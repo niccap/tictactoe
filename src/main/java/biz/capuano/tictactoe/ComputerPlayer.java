@@ -1,20 +1,13 @@
 package biz.capuano.tictactoe;
 import java.util.Random;
 
-class ComputerPlayer implements Player {
-    private final char mark;
+class ComputerPlayer extends Player {
     private static final Random random = new Random();
 
     public ComputerPlayer(char mark) {
-        this.mark = mark;
+        super(mark);
     }
 
-    @Override
-    public char getMark() {
-        return mark;
-    }
-
-    @Override
     public Move makeMove(Board board) {
         Move move;
         do {

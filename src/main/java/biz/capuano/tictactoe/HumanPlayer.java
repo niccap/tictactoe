@@ -1,20 +1,13 @@
 package biz.capuano.tictactoe;
 import java.util.Scanner;
 
-class HumanPlayer implements Player {
-    private final char mark;
+class HumanPlayer extends Player {
     private static final Scanner scanner = new Scanner(System.in);
 
     public HumanPlayer(char mark) {
-        this.mark = mark;
+        super(mark);
     }
 
-    @Override
-    public char getMark() {
-        return mark;
-    }
-
-    @Override
     public Move makeMove(Board board) {
         Move move;
         while(true) {
