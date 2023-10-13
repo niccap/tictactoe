@@ -26,6 +26,9 @@ loop !someoneWon && !boardIsFull
   player --> game
   deactivate player
 
+  game -> board++ : print()
+  deactivate board
+
   game -> board++ : checkForWin(currentPlayer)
   board -> board : [check for win conditions]
   board --> game : someoneWon: boolean
