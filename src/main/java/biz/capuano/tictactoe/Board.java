@@ -53,9 +53,7 @@ class Board {
         }
         if (cells[0][0] == mark && cells[1][1] == mark && cells[2][2] == mark)
             return true;
-        if (cells[0][2] == mark && cells[1][1] == mark && cells[2][0] == mark)
-            return true;
-        return false;
+        return cells[0][2] == mark && cells[1][1] == mark && cells[2][0] == mark;
     }
 }
 
