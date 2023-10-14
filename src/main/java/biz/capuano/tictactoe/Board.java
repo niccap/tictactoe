@@ -1,7 +1,7 @@
 package biz.capuano.tictactoe;
 
 class Board {
-    public final int SIZE = 3;
+    public static final int SIZE = 3;
     private final char[][] cells;
 
     public Board() {
