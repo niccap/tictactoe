@@ -8,6 +8,7 @@ class ComputerPlayer extends Player {
         super(mark);
     }
 
+    @Override
     public Move makeMove(Board board) {
         Move move;
         do {
