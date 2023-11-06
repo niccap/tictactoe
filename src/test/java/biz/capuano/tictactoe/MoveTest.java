@@ -29,7 +29,7 @@ public class MoveTest {
      */
     @Test
     public void testGetRow() {
-        System.out.println("getRow");
+        System.out.println("Testing getRow");
         Move instance = new Move(1, 2);
         int expResult = 1;
         int result = instance.getRow();
@@ -41,7 +41,7 @@ public class MoveTest {
      */
     @Test
     public void testGetCol() {
-        System.out.println("getCol");
+        System.out.println("Testing getCol");
         Move instance = new Move(1, 2);
         int expResult = 2;
         int result = instance.getCol();
