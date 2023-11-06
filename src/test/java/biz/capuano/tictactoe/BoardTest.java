@@ -206,31 +206,39 @@ public class BoardTest {
     @Test
     public void testPrint1() {
         System.out.println("Testing print: empty board");
-
-        PrintStream originalOut = System.out; // Save the current output stream 
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream(); // Create a temporary output stream
-        System.setOut(new PrintStream(outputStream)); // Change the current output stream
-
+        ByteArrayOutputStream out = redirectOutput();
         board.print();
         String expectedOutput = "┌───┬───┬───┐\n│   │   │   │ \n├───┼───┼───┤\n│   │   │   │ \n├───┼───┼───┤\n│   │   │   │ \n└───┴───┴───┘";
-        assertEquals(expectedOutput, outputStream.toString().trim());
-
-        System.setOut(originalOut); // Restore the original output stream
+        assertEquals(expectedOutput, out.toString().trim());
+        restoreOutput();
     }
     @Test
     public void testPrint2() {
         System.out.println("Testing print: non-empty board");
-
-        PrintStream originalOut = System.out; // Save the current output stream 
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream(); // Create a temporary output stream
-        System.setOut(new PrintStream(outputStream)); // Change the current output stream
-
+        ByteArrayOutputStream out = redirectOutput();
         board.makeMove(new Move(1,1), 'X');
         board.makeMove(new Move(2,2), 'O');
         board.print();
         String expectedOutput = "┌───┬───┬───┐\n│ X │   │   │ \n├───┼───┼───┤\n│   │ O │   │ \n├───┼───┼───┤\n│   │   │   │ \n└───┴───┴───┘";
-        assertEquals(expectedOutput, outputStream.toString().trim());
-
-        System.setOut(originalOut); // Restore the original output stream
+        assertEquals(expectedOutput, out.toString().trim());
+        restoreOutput();
     }
+    
+   /**
+     * Helper fuctions to capture console output
+     */
+
+    private PrintStream originalOut; 
+
+    private ByteArrayOutputStream redirectOutput() {
+        originalOut = System.out; // Save the current output stream 
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream(); // Create a temporary output stream
+        System.setOut(new PrintStream(outputStream)); // Change the current output stream
+        return outputStream;
+    }
+    
+    private void restoreOutput() {
+        System.setOut(originalOut);
+    }
+
 }
