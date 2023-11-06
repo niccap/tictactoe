@@ -2,7 +2,6 @@ package biz.capuano.tictactoe;
 import java.util.Scanner;
 
 class HumanPlayer extends Player {
-    //private static final Scanner scanner = new Scanner(System.in);
 
     public HumanPlayer(char mark) {
         super(mark);
