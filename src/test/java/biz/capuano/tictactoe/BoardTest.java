@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.io.*;
 
 public class BoardTest {
+    Board board;
     
     public BoardTest() {
     }
@@ -19,6 +20,7 @@ public class BoardTest {
     
     @BeforeEach
     public void setUp() {
+        board = new Board();
     }
     
     @AfterEach
@@ -29,50 +31,105 @@ public class BoardTest {
      * Test of isValidMove method, of class Board.
      */
     @Test
-    public void testIsValidMove() {
-        System.out.println("Testing isValidMove");
-        Board board = new Board();
-        assertEquals(false, board.isValidMove(new Move(0,0)));
-        assertEquals(false, board.isValidMove(new Move(1,4)));
-        assertEquals(false, board.isValidMove(new Move(0,1)));
+    public void testIsValidMove1() {
+        System.out.println("Testing isValidMove: correct row and column");
         assertEquals(true, board.isValidMove(new Move(1,3)));
-        assertEquals(true, board.isValidMove(new Move(2,2)));
     }
-
+    @Test
+    public void testIsValidMove2() {
+        System.out.println("Testing isValidMove: correct row wrong column");
+        assertEquals(false, board.isValidMove(new Move(2,0)));
+    }
+    @Test
+    public void testIsValidMove3() {
+        System.out.println("Testing isValidMove: wrong row, correct column");
+        assertEquals(false, board.isValidMove(new Move(4,2)));
+    }
+    @Test
+    public void testIsValidMove4() {
+        System.out.println("Testing isValidMove: wrong row and column");
+        assertEquals(false, board.isValidMove(new Move(0,4)));
+    }
+    
     /**
      * Test of makeMove method, of class Board.
     */
     @Test
-    public void testMakeMove() {
-        System.out.println("Testing makeMove");
-        Board board = new Board();
-        assertEquals(false, board.makeMove(new Move(0,0), 'X'));
-        assertEquals(false, board.makeMove(new Move(1,4), 'X'));
-        assertEquals(false, board.makeMove(new Move(0,1), 'X'));
-        assertEquals(true, board.makeMove(new Move(1,3), 'X'));
+    public void testMakeMove1() {
+        System.out.println("Testing makeMove: correct row and column");
         assertEquals(true, board.makeMove(new Move(2,2), 'X'));
+    }
+    @Test
+    public void testMakeMove2() {
+        System.out.println("Testing makeMove: correct row, wrong column");
+        assertEquals(false, board.makeMove(new Move(2,-1), 'O'));
+    }
+    @Test
+    public void testMakeMove3() {
+        System.out.println("Testing makeMove: wrong row, correct column");
+        assertEquals(false, board.makeMove(new Move(4,1), 'X'));
+    }
+    @Test
+    public void testMakeMove4() {
+        System.out.println("Testing makeMove: wrong row and column");
+        assertEquals(false, board.makeMove(new Move(-2,-2), 'O'));
+    }
+    @Test   
+    public void testMakeMove5() {
+        System.out.println("Testing makeMove: box occupied, same symbol");
+        assertEquals(true, board.makeMove(new Move(1,3), 'X'));
         assertEquals(false, board.makeMove(new Move(1,3), 'X'));
-        assertEquals(false, board.makeMove(new Move(2,2), 'X'));
+    }
+    @Test   
+    public void testMakeMove6() {
+        System.out.println("Testing makeMove: box occupied, different symbol");
+        assertEquals(true, board.makeMove(new Move(3,1), 'X'));
+        assertEquals(false, board.makeMove(new Move(3,1), 'O'));
     }
     
     /**
      * Test of isFull method, of class Board.
     */
     @Test
-    public void testIsFull() {
-        System.out.println("Testing isFull");
-        Board board = new Board();
+    public void testIsFull1() {
+        System.out.println("Testing isFull: empty board");
         assertEquals(false, board.isFull());
+    }
+    @Test
+    public void testIsFull2() {
+        System.out.println("Testing isFull: not full");
         board.makeMove(new Move(1,1), 'X');
-        board.makeMove(new Move(1,2), 'X');
+        board.makeMove(new Move(1,2), 'O');
         board.makeMove(new Move(1,3), 'X');
-        assertEquals(false, board.isFull());
-        board.makeMove(new Move(2,1), 'X');
+        board.makeMove(new Move(2,1), 'O');
         board.makeMove(new Move(2,2), 'X');
-        board.makeMove(new Move(2,3), 'X');
+        board.makeMove(new Move(2,3), 'O');
         assertEquals(false, board.isFull());
-        board.makeMove(new Move(3,1), 'X');
+    }
+    @Test
+    public void testIsFull3() {
+        System.out.println("Testing isFull: almost full");
+        board.makeMove(new Move(1,1), 'O');
+        board.makeMove(new Move(1,2), 'X');
+        board.makeMove(new Move(1,3), 'O');
+        board.makeMove(new Move(2,1), 'X');
+        board.makeMove(new Move(2,2), 'O');
+        board.makeMove(new Move(2,3), 'X');
+        board.makeMove(new Move(3,1), 'O');
         board.makeMove(new Move(3,2), 'X');
+        assertEquals(false, board.isFull());        
+    }
+    @Test
+    public void testIsFull4() {
+        System.out.println("Testing isFull: full");
+        board.makeMove(new Move(1,1), 'X');
+        board.makeMove(new Move(1,2), 'O');
+        board.makeMove(new Move(1,3), 'X');
+        board.makeMove(new Move(2,1), 'O');
+        board.makeMove(new Move(2,2), 'X');
+        board.makeMove(new Move(2,3), 'O');
+        board.makeMove(new Move(3,1), 'X');
+        board.makeMove(new Move(3,2), 'O');
         board.makeMove(new Move(3,3), 'X');
         assertEquals(true, board.isFull());        
     }
