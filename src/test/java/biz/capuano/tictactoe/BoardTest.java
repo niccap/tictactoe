@@ -138,46 +138,44 @@ public class BoardTest {
      * Test of checkForWin method, of class Board.
     */
     @Test
-    public void testCheckForWin() {
-        System.out.println("Testing checkForWin");
-        Board board = new Board();
-        
-        // Check empty board
+    public void testCheckForWin1() {
+        System.out.println("Testing checkForWin: empty board");
         assertEquals(false, board.checkForWin('X'));
         assertEquals(false, board.checkForWin('O'));
 
-        // Check horizontal win X
+    }
+    @Test
+    public void testCheckForWin2() {
+        System.out.println("Testing checkForWin: horizontal win");
         board.makeMove(new Move(1,1), 'X');
         board.makeMove(new Move(1,2), 'X');
         board.makeMove(new Move(1,3), 'X');
         assertEquals(true, board.checkForWin('X'));
         assertEquals(false, board.checkForWin('O'));
-        
-        // Check horizontal win O
-        board.makeMove(new Move(2,1), 'O');
-        board.makeMove(new Move(2,2), 'O');
-        board.makeMove(new Move(2,3), 'O');
-        assertEquals(true, board.checkForWin('X'));
-        assertEquals(true, board.checkForWin('O'));
 
-        // Check vertical win
-        board = new Board();
-        board.makeMove(new Move(1,2), 'X');
-        board.makeMove(new Move(2,2), 'X');
-        board.makeMove(new Move(3,2), 'X');        
-        assertEquals(true, board.checkForWin('X'));
-        assertEquals(false, board.checkForWin('O'));
-        
-        // Check diagonal win
-        board = new Board();
-        board.makeMove(new Move(1,1), 'O');
+    }
+    @Test
+    public void testCheckForWin3() {
+        System.out.println("Testing checkForWin: vertical win");
+
+        board.makeMove(new Move(1,2), 'O');
         board.makeMove(new Move(2,2), 'O');
-        board.makeMove(new Move(3,3), 'O');
+        board.makeMove(new Move(3,2), 'O');        
         assertEquals(false, board.checkForWin('X'));
         assertEquals(true, board.checkForWin('O'));
-
-        // Check no win
-        board = new Board();
+    }
+    @Test
+    public void testCheckForWin4() {
+        System.out.println("Testing checkForWin: diagonal win");
+        board.makeMove(new Move(1,1), 'X');
+        board.makeMove(new Move(2,2), 'X');
+        board.makeMove(new Move(3,3), 'X');
+        assertEquals(true, board.checkForWin('X'));
+        assertEquals(false, board.checkForWin('O'));
+    }
+    @Test
+    public void testCheckForWin5() {
+        System.out.println("Testing checkForWin: no win");
         board.makeMove(new Move(1,1), 'X');
         board.makeMove(new Move(1,2), 'O');
         board.makeMove(new Move(1,3), 'X');
@@ -186,8 +184,16 @@ public class BoardTest {
         board.makeMove(new Move(2,3), 'O');
         assertEquals(false, board.checkForWin('X'));
         assertEquals(false, board.checkForWin('O'));
-
-        // Check no win with full board
+    }
+    @Test
+    public void testCheckForWin6() {
+        System.out.println("Testing checkForWin: full board, no win");
+        board.makeMove(new Move(1,1), 'X');
+        board.makeMove(new Move(1,2), 'O');
+        board.makeMove(new Move(1,3), 'X');
+        board.makeMove(new Move(2,1), 'O');
+        board.makeMove(new Move(2,2), 'X');
+        board.makeMove(new Move(2,3), 'O');
         board.makeMove(new Move(3,1), 'O');
         board.makeMove(new Move(3,2), 'X');
         board.makeMove(new Move(3,3), 'O');
@@ -199,31 +205,33 @@ public class BoardTest {
      * Test of print method, of class Board.
     */
     @Test
-    public void testPrint() {
-        System.out.println("Testing print");
+    public void testPrint1() {
+        System.out.println("Testing print: empty board");
 
-        // Save the current output stream 
-        PrintStream originalOut = System.out;
+        PrintStream originalOut = System.out; // Save the current output stream 
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream(); // Create a temporary output stream
+        System.setOut(new PrintStream(outputStream)); // Change the current output stream
 
-        // Create a temporary output stream 
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outputStream));
-
-        // Run the test cases
-        Board board = new Board();
         board.print();
         String expectedOutput = "┌───┬───┬───┐\n│   │   │   │ \n├───┼───┼───┤\n│   │   │   │ \n├───┼───┼───┤\n│   │   │   │ \n└───┴───┴───┘";
         assertEquals(expectedOutput, outputStream.toString().trim());
 
-        outputStream.reset();
+        System.setOut(originalOut); // Restore the original output stream
+    }
+    @Test
+    public void testPrint2() {
+        System.out.println("Testing print: non-empty board");
+
+        PrintStream originalOut = System.out; // Save the current output stream 
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream(); // Create a temporary output stream
+        System.setOut(new PrintStream(outputStream)); // Change the current output stream
+
         board.makeMove(new Move(1,1), 'X');
         board.makeMove(new Move(2,2), 'O');
         board.print();
-        expectedOutput = "┌───┬───┬───┐\n│ X │   │   │ \n├───┼───┼───┤\n│   │ O │   │ \n├───┼───┼───┤\n│   │   │   │ \n└───┴───┴───┘";
+        String expectedOutput = "┌───┬───┬───┐\n│ X │   │   │ \n├───┼───┼───┤\n│   │ O │   │ \n├───┼───┼───┤\n│   │   │   │ \n└───┴───┴───┘";
         assertEquals(expectedOutput, outputStream.toString().trim());
 
-        // Restore the original output stream
-        System.setOut(originalOut);
+        System.setOut(originalOut); // Restore the original output stream
     }
-
 }
