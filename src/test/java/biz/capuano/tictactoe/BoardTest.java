@@ -76,13 +76,13 @@ public class BoardTest {
     }
     @Test   
     public void testMakeMove5() {
-        System.out.println("Testing makeMove: box occupied, same symbol");
+        System.out.println("Testing makeMove: occupied cell, same symbol");
         assertEquals(true, board.makeMove(new Move(1,3), 'X'));
         assertEquals(false, board.makeMove(new Move(1,3), 'X'));
     }
     @Test   
     public void testMakeMove6() {
-        System.out.println("Testing makeMove: box occupied, different symbol");
+        System.out.println("Testing makeMove: occupied cell, different symbol");
         assertEquals(true, board.makeMove(new Move(3,1), 'X'));
         assertEquals(false, board.makeMove(new Move(3,1), 'O'));
     }
@@ -157,7 +157,6 @@ public class BoardTest {
     @Test
     public void testCheckForWin3() {
         System.out.println("Testing checkForWin: vertical win");
-
         board.makeMove(new Move(1,2), 'O');
         board.makeMove(new Move(2,2), 'O');
         board.makeMove(new Move(3,2), 'O');        
