@@ -33,14 +33,6 @@ class Move {
   - col: int
 }
 
-class TicTacToe {
-  + {static} main()
-  - {static} startNewGame()
-  - {static} playAgain(): boolean
-}
-
-TicTacToe ..> Player
-TicTacToe ..> Game
 Game o-- "2" Player: player1, player2
 Game *-- "1" Board: board
 Board ..> Move
