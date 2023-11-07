@@ -30,10 +30,8 @@ public class MoveTest {
     @Test
     public void testGetRow() {
         System.out.println("Testing getRow");
-        Move instance = new Move(1, 2);
-        int expResult = 1;
-        int result = instance.getRow();
-        assertEquals(expResult, result);
+        Move move = new Move(1, 2);
+        assertEquals(1, move.getRow());
     }
 
     /**
@@ -42,10 +40,8 @@ public class MoveTest {
     @Test
     public void testGetCol() {
         System.out.println("Testing getCol");
-        Move instance = new Move(1, 2);
-        int expResult = 2;
-        int result = instance.getCol();
-        assertEquals(expResult, result);
+        Move move = new Move(1, 2);
+        assertEquals(2, move.getCol());
     }
     
 }
